@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColoredDir", "ColoredDir\ColoredDir.csproj", "{4DB44113-C3C3-4430-91F4-A49812FE99F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendCommandLineLib", "ExtendCommandLineLib\ExtendCommandLineLib.csproj", "{964D0B1C-002C-40B2-B657-A8401938EBB7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4DB44113-C3C3-4430-91F4-A49812FE99F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DB44113-C3C3-4430-91F4-A49812FE99F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DB44113-C3C3-4430-91F4-A49812FE99F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DB44113-C3C3-4430-91F4-A49812FE99F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{964D0B1C-002C-40B2-B657-A8401938EBB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{964D0B1C-002C-40B2-B657-A8401938EBB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{964D0B1C-002C-40B2-B657-A8401938EBB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{964D0B1C-002C-40B2-B657-A8401938EBB7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B5DA1B18-E581-436B-9102-510041C57BDF}
+	EndGlobalSection
+EndGlobal
