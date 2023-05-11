@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ColoredDir.Modeles
+namespace ColoredDir.Models
 {
     internal class Config
     {

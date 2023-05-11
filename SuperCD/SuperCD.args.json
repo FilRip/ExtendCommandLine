@@ -1,0 +1,10 @@
+{
+  "FileVersion": 2,
+  "Id": "14197cab-c768-4793-bfbe-8848921bafda",
+  "Items": [
+    {
+      "Id": "67f10564-97c4-40d1-93b4-a76e719452a8",
+      "Command": "-scan"
+    }
+  ]
+}

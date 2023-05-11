@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Text;
 
 using ExtendCommandLineLib;
 
-namespace ColoredDir.Modeles
+namespace ColoredDir.Models
 {
     internal class OneFileSystem
     {

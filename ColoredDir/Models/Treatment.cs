@@ -4,7 +4,7 @@ using System;
 using ExtendCommandLineLib;
 using System.Linq;
 
-namespace ColoredDir.Modeles
+namespace ColoredDir.Models
 {
     internal class Treatment
     {

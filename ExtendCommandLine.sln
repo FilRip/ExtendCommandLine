@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColoredDir", "ColoredDir\Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendCommandLineLib", "ExtendCommandLineLib\ExtendCommandLineLib.csproj", "{964D0B1C-002C-40B2-B657-A8401938EBB7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperCD", "SuperCD\SuperCD.csproj", "{14197CAB-C768-4793-BFBE-8848921BAFDA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{964D0B1C-002C-40B2-B657-A8401938EBB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{964D0B1C-002C-40B2-B657-A8401938EBB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{964D0B1C-002C-40B2-B657-A8401938EBB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14197CAB-C768-4793-BFBE-8848921BAFDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14197CAB-C768-4793-BFBE-8848921BAFDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14197CAB-C768-4793-BFBE-8848921BAFDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14197CAB-C768-4793-BFBE-8848921BAFDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

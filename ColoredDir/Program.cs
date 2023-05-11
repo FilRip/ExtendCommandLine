@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-using ColoredDir.Modeles;
+using ColoredDir.Models;
 using System.Linq;
 
 using static ExtendCommandLineLib.ExtensionsCommandLineArguments;
