@@ -38,7 +38,7 @@ namespace ExtendCommandLineLib
         /// <param name="argument">Argument à rechercher</param>
         public static bool ArgumentVariablePresent(string argument)
         {
-            return ArgumentVariablePresent(argument, "=", StringComparison.OrdinalIgnoreCase);
+            return ArgumentVariablePresent(argument, ":", StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace ExtendCommandLineLib
         /// <param name="comparateur">Comparateur de chaine</param>
         public static bool ArgumentVariablePresent(string argument, StringComparison comparateur)
         {
-            return ArgumentVariablePresent(argument, "=", comparateur);
+            return ArgumentVariablePresent(argument, ":", comparateur);
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace ExtendCommandLineLib
         /// <param name="argument">Argument à rechercher</param>
         public static string ArgumentValeur(string argument)
         {
-            return ArgumentValeur(argument, "=", StringComparison.OrdinalIgnoreCase);
+            return ArgumentValeur(argument, ":", StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace ExtendCommandLineLib
         /// <param name="comparateur">Comparateur de chaine</param>
         public static string ArgumentValeur(string argument, StringComparison comparateur)
         {
-            return ArgumentValeur(argument, "=", comparateur);
+            return ArgumentValeur(argument, ":", comparateur);
         }
 
         /// <summary>

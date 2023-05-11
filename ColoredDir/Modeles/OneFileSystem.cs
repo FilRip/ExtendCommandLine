@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Text;
 
@@ -64,10 +65,15 @@ namespace ColoredDir.Modeles
             get { return Extension.ToLower() == ".dll"; }
         }
 
-        public void WriteToConsole(int greaterSize)
+        public bool WriteToConsole(int greaterSize, Config conf)
         {
-            if (IsHidden)
-                return;
+            if (IsHidden && !conf.ShowHidden)
+                return false;
+            if (!IsReadOnly && conf.ShowOnlyReadOnly)
+                return false;
+            if (!IsDirectory && conf.ShowOnlyDirectory)
+                return false;
+
             if (IsDirectory)
             {
                 if (IsHidden)
@@ -99,21 +105,47 @@ namespace ColoredDir.Modeles
             }
 
             StringBuilder output = new();
-            output.Append($"{LastWrite.Day:00}/{LastWrite.Month:00}/{LastWrite.Year:0000} {LastWrite.Hour:00}:{LastWrite.Minute:00}   ");
-            if (IsDirectory)
+            if (!conf.NoTitleNoSummary)
             {
-                output.Append("<DIR>   " + new string(' ', greaterSize));
+                output.Append($"{LastWrite.Day:00}/{LastWrite.Month:00}/{LastWrite.Year:0000} {LastWrite.Hour:00}:{LastWrite.Minute:00}   ");
+                if (IsDirectory)
+                {
+                    output.Append("<DIR>   " + new string(' ', greaterSize));
+                }
+                else
+                {
+                    output.Append("        ");
+                    string sizeOfFile = Size.ToNumberFormat();
+                    output.Append(new string(' ', greaterSize - sizeOfFile.Length) + sizeOfFile);
+                }
+                if (conf.ShowShortName)
+                {
+                    StringBuilder shortname = new(256);
+                    Program.GetShortPathName(Name, shortname, 256);
+                    output.Append($" {shortname,-12}");
+                }
+                if (conf.ShowOwner)
+                {
+                    string owner = "";
+                    try
+                    {
+                        if (IsFile)
+                            owner = File.GetAccessControl(FullPath).GetOwner(typeof(System.Security.Principal.NTAccount)).Value;
+                        else
+                            owner = Directory.GetAccessControl(FullPath).GetOwner(typeof(System.Security.Principal.NTAccount)).Value;
+                    }
+                    catch (Exception) { /* Ignore errors, certainly current user not enough rights to access the file/directory */ }
+                    output.Append($" {owner.ReturnStringWithMaxSize(22),-22}");
+                }
+                output.Append($" {(conf.LowerCase ? Name.ToLower() : Name)}");
             }
+            else if (IsSystemDirectory)
+                return false;
             else
-            {
-                output.Append("        ");
-                string sizeOfFile = Size.ToNumberFormat();
-                output.Append(new string(' ', greaterSize - sizeOfFile.Length) + sizeOfFile);
-            }
-            output.Append($" {Name}");
+                output.Append($" {FullPath}");
 
-            Console.WriteLine(output.ToString());
-            output.Clear();
+            Program.WriteToConsole(output.ToString());
+            return true;
         }
 
         public int Order { get; set; }
