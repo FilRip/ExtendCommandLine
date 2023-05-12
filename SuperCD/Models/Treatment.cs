@@ -4,7 +4,6 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 
 using static ExtendCommandLineLib.ExtensionsCommandLineArguments;
 
@@ -97,7 +96,7 @@ namespace SuperCD.Models
                 _databaseInteraction.Insert(path, Path.GetFileName(path));
                 listSubDir = Directory.GetDirectories(path);
             }
-            catch (Exception) { /* Ignore errors, probably current user has not enought rights*/ }
+            catch (Exception) { /* Ignore errors, probably current user has not enought rights */ }
             if (listSubDir != null)
                 foreach (string subDir in listSubDir)
                 {

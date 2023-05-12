@@ -3,8 +3,6 @@ using System.Data.SQLite;
 using System.IO;
 using System.Reflection;
 
-using static ExtendCommandLineLib.ExtensionsCommandLineArguments;
-
 namespace SuperCD.Models
 {
     internal class SQLiteOperations
