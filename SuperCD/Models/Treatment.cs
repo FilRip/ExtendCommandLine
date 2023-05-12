@@ -56,7 +56,7 @@ namespace SuperCD.Models
                         if (!string.IsNullOrWhiteSpace(numPressed.KeyChar.ToString()))
                         {
                             int index = int.Parse(numPressed.KeyChar.ToString());
-                            Program.ChangeDirectory(result.Rows[index - 1].ToString());
+                            Program.ChangeDirectory(result.Rows[index - 1][0].ToString());
                         }
                     }
                 }

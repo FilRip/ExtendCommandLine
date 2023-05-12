@@ -28,7 +28,7 @@ namespace SuperCD
 
         internal static void ChangeDirectory(string directory)
         {
-            SendKeys.SendWait(directory + "{ENTER}");
+            SendKeys.SendWait("cd \"" + directory + "\"{ENTER}");
         }
     }
 }
