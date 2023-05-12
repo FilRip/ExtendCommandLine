@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 using SuperCD.Models;
 
@@ -28,7 +29,7 @@ namespace SuperCD
 
         internal static void ChangeDirectory(string directory)
         {
-            SendKeys.SendWait("cd \"" + directory + "\"{ENTER}");
+            SendKeys.SendWait("cd /D \"" + directory + "\"{ENTER}");
         }
     }
 }

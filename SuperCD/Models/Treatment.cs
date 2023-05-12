@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 using static ExtendCommandLineLib.ExtensionsCommandLineArguments;
@@ -25,18 +26,26 @@ namespace SuperCD.Models
             List<string> dirToSearch = Arguments().Split(' ').ToList();
             if (dirToSearch.Count > 0 )
             {
+                if (dirToSearch.Count == 1)
+                {
+                    DataTable oneShot = _databaseInteraction.Result($"select fullpath from scan where name='{dirToSearch[0]}'");
+                    if (oneShot.Rows.Count == 1)
+                    {
+                        Program.ChangeDirectory(oneShot.Rows[0][0].ToString());
+                        return;
+                    }
+                }
                 StringBuilder query = new("select FullPath, Name from scan where 1=1");
                 foreach (string s in dirToSearch )
                 {
-                    query.Append($" AND Name like '%{s}%'");
+                    query.Append($" AND lower(Name) like '%{s.ToLower()}%'");
                 }
                 DataTable result = _databaseInteraction.Result(query.ToString());
                 if (result.Rows.Count == 0)
                     Console.WriteLine("No match found");
                 else if (result.Rows.Count == 1)
                 {
-                    string toSend = "cd \"" + result.Rows[0][0].ToString() + "\"{ENTER}";
-                    Program.ChangeDirectory(toSend);
+                    Program.ChangeDirectory(result.Rows[0][0].ToString());
                 }
                 else
                 {
