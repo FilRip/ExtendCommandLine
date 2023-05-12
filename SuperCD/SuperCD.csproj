@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\ParentProcessUtilities.cs" />
+    <Compile Include="Models\SendMessageToWindow.cs" />
     <Compile Include="Models\SQLiteOperations.cs" />
     <Compile Include="Models\Treatment.cs" />
     <Compile Include="Program.cs" />

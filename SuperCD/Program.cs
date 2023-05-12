@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Windows.Forms;
 
 using SuperCD.Models;
 
@@ -31,13 +30,20 @@ namespace SuperCD
         internal static void ChangeDirectory(string directory)
         {
             Process parentProcess = ParentProcessUtilities.GetParentProcess();
-            string changeDrive = "";
-            if (parentProcess != null &&
-                parentProcess.ProcessName == "cmd")
+            if (parentProcess != null)
             {
-                changeDrive = " /D";
+                string changeDrive = "";
+                if (parentProcess.ProcessName == "cmd")
+                    changeDrive = " /D";
+                SendCommand(parentProcess.MainWindowHandle, $"cd{changeDrive} \"" + directory + "\"");
             }
-            SendKeys.SendWait($"cd{changeDrive} \"" + directory + "\"{ENTER}");
+        }
+
+        internal static void SendCommand(IntPtr windowHandle, string command)
+        {
+            foreach (char key in command)
+                SendMessageToWindow.PostMessage(windowHandle, 0x102, key, IntPtr.Zero);
+            SendMessageToWindow.PostMessage(windowHandle, 0x100, 0x0D, IntPtr.Zero);
         }
     }
 }

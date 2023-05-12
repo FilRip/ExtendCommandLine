@@ -18,7 +18,7 @@ namespace SuperCD.Models
         [DllImport("ntdll.dll")]
         private static extern int NtQueryInformationProcess(IntPtr processHandle, int processInformationClass, ref ParentProcessUtilities processInformation, int processInformationLength, out int returnLength);
 
-        public static Process GetParentProcess()
+        internal static Process GetParentProcess()
         {
             ParentProcessUtilities pbi = new();
             int status = NtQueryInformationProcess(Process.GetCurrentProcess().Handle, 0, ref pbi, Marshal.SizeOf(pbi), out _);
