@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Data.SQLite;
 using System.IO;
+using System.Reflection;
 
 using static ExtendCommandLineLib.ExtensionsCommandLineArguments;
 
@@ -46,7 +47,7 @@ namespace SuperCD.Models
 
         private void Connect()
         {
-            _database = new SQLiteConnection($"Data Source={ArgumentRepertoireExe() + Path.DirectorySeparatorChar + "supercd.sqlite3;Version=3"}");
+            _database = new SQLiteConnection($"Data Source={Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar + "supercd.sqlite3;Version=3"}");
             _database.Open();
             DataTable dt = Result("select * from sqlite_master where type='table'");
             if (dt.Rows.Count == 0)
@@ -59,6 +60,11 @@ namespace SuperCD.Models
             cmd.CommandText = "create table scan(id int primary key, name text, fullpath text)";
             cmd.CommandType = CommandType.Text;
             cmd.ExecuteNonQuery();
+        }
+
+        internal void Close()
+        {
+            _database.Close();
         }
     }
 }

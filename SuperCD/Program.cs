@@ -1,4 +1,7 @@
-﻿using SuperCD.Models;
+﻿using System.Runtime.Remoting.Services;
+using System.Windows.Forms;
+
+using SuperCD.Models;
 
 using static ExtendCommandLineLib.ExtensionsCommandLineArguments;
 
@@ -21,6 +24,12 @@ namespace SuperCD
             {
                 treatment.Search();
             }
+            treatment.CloseDatabase();
+        }
+
+        internal static void ChangeDirectory(string directory)
+        {
+            SendKeys.SendWait(directory + "{ENTER}");
         }
     }
 }

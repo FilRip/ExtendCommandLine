@@ -13,10 +13,12 @@ namespace SuperCD.Models
     internal class Treatment
     {
         private readonly SQLiteOperations _databaseInteraction;
+        private readonly bool _includeHiddenDirectory;
 
         public Treatment()
         {
             _databaseInteraction = new();
+            _includeHiddenDirectory = ArgumentPresent("-withhidden");
         }
 
         public void Search()
@@ -35,18 +37,27 @@ namespace SuperCD.Models
                 else if (result.Rows.Count == 1)
                 {
                     string toSend = "cd \"" + result.Rows[0][0].ToString() + "\"{ENTER}";
-                    SendKeys.SendWait(toSend);
+                    Program.ChangeDirectory(toSend);
                 }
                 else
                 {
-                    if (result.Rows.Count > Console.WindowHeight - 2)
+                    if (result.Rows.Count > 9)
                         Console.WriteLine("Too many matches");
                     else
                     {
                         Console.WriteLine("Found :");
+                        int i = 0;
                         foreach (DataRow row in result.Rows)
                         {
-                            Console.WriteLine(row[0]);
+                            i++;
+                            Console.WriteLine(i.ToString() + "= " + row[0].ToString());
+                        }
+                        Console.WriteLine("Enter number of your choice, or ENTER to cancel");
+                        ConsoleKeyInfo numPressed = Console.ReadKey();
+                        if (!string.IsNullOrWhiteSpace(numPressed.KeyChar.ToString()))
+                        {
+                            int index = int.Parse(numPressed.KeyChar.ToString());
+                            Program.ChangeDirectory(result.Rows[index - 1].ToString());
                         }
                     }
                 }
@@ -61,8 +72,8 @@ namespace SuperCD.Models
             {
                 listArgs.ToList().ForEach(s =>
                 {
-                    if (s.ToLower().Trim() != "-scan")
-                        dirToScan.Add(s);
+                    if (s.ToLower().Trim() != "-scan" && s.ToLower().Trim() != "-withhidden")
+                        dirToScan.Add(Path.GetFullPath(s));
                 });
             }
             if (dirToScan.Count == 0)
@@ -81,6 +92,8 @@ namespace SuperCD.Models
             string[] listSubDir = null;
             try
             {
+                if (!_includeHiddenDirectory && path.Length > 3 && File.GetAttributes(path).HasFlag(FileAttributes.Hidden))
+                    return;
                 _databaseInteraction.Insert(path, Path.GetFileName(path));
                 listSubDir = Directory.GetDirectories(path);
             }
@@ -88,6 +101,8 @@ namespace SuperCD.Models
             if (listSubDir != null)
                 foreach (string subDir in listSubDir)
                 {
+                    if (!_includeHiddenDirectory && File.GetAttributes(subDir).HasFlag(FileAttributes.Hidden))
+                        continue;
                     ScanDirRecursively(subDir);
                 }
         }
@@ -115,6 +130,11 @@ namespace SuperCD.Models
         private void Remove(string s)
         {
             _databaseInteraction.RemoveSubDir(s);
+        }
+
+        public void CloseDatabase()
+        {
+            _databaseInteraction?.Close();
         }
     }
 }
