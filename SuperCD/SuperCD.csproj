@@ -49,6 +49,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\ParentProcessUtilities.cs" />
     <Compile Include="Models\SQLiteOperations.cs" />
     <Compile Include="Models\Treatment.cs" />
     <Compile Include="Program.cs" />

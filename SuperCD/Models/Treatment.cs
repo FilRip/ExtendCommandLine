@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 
 using static ExtendCommandLineLib.ExtensionsCommandLineArguments;
@@ -62,9 +61,10 @@ namespace SuperCD.Models
                         }
                         Console.WriteLine("Enter number of your choice, or ENTER to cancel");
                         ConsoleKeyInfo numPressed = Console.ReadKey();
-                        if (!string.IsNullOrWhiteSpace(numPressed.KeyChar.ToString()))
+                        if (!string.IsNullOrWhiteSpace(numPressed.KeyChar.ToString()) &&
+                            int.TryParse(numPressed.KeyChar.ToString(), out int index) &&
+                            index > 0 && index <= result.Rows.Count)
                         {
-                            int index = int.Parse(numPressed.KeyChar.ToString());
                             Program.ChangeDirectory(result.Rows[index - 1][0].ToString());
                         }
                     }
@@ -89,8 +89,9 @@ namespace SuperCD.Models
             Console.WriteLine("Scanning...");
             foreach (string s in dirToScan)
             {
-                Remove(s);
-                ScanDirRecursively(s);
+                string path = Path.GetFullPath(s);
+                Remove(path);
+                ScanDirRecursively(path);
             }
             Console.WriteLine("Done!");
         }
@@ -131,13 +132,13 @@ namespace SuperCD.Models
                 dirToRemove.Add(Environment.CurrentDirectory);
             Console.WriteLine("Removing...");
             foreach (string s in dirToRemove)
-                _databaseInteraction.RemoveSubDir(s);
+                _databaseInteraction.RemoveSubDir(Path.GetFullPath(s));
             Console.WriteLine("Done!");
         }
 
         private void Remove(string s)
         {
-            _databaseInteraction.RemoveSubDir(s);
+            _databaseInteraction.RemoveSubDir(Path.GetFullPath(s));
         }
 
         public void CloseDatabase()
